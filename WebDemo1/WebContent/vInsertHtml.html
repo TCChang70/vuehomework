@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert HTML</title>
+<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+  <!-- axios -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
+
+</head>
+<body>
+<!-- html -->
+<div id="app">
+  <!--   <div>{{myhtml}}</div>   -->
+    <div v-html="myhtml"></div>
+</div>
+<pre>
+上面使用{{}}是直接輸出字串，下面使用v-html則能成功顯示圖片。
+但要注意使用v-html可能很危險，因為在讓使用者輸入時，會有機會讓他們塞入惡意script，
+所以如果要使用的話要特別確保資料來源是安全可靠的(比如說從自己資料庫輸入的)，不要是使用者自己提供的值。
+</pre>
+<!-- js -->
+<script>
+    new Vue({
+      el: "#app",
+      data: {
+        myhtml:  '<h1>HELLO '+ 
+        '<span style="color:blue;">'+ 
+        'WORLD</span>'+ '</h1>' 
+      },
+      mounted () {
+    	    axios
+    	      .get('add.jsp',{params :{title:'Vue.js',author:'Amy'}})
+    	      .then(response => (this.myhtml = response.data))
+    	      .catch(function (error) { // 請求失敗處理
+    	        console.log(error);
+    	      });
+    	  }
+    });
+</script>
+</body>
+</html>

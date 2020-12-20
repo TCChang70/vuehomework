@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert Image</title>
+<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+ <!-- axios -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
+
+</head>
+<body>
+<!-- html -->
+<div id="app">    
+    <div v-bind:style="{backgroundImage:'url(' + img1 + ')', backgroundPosition:'center',width: '1200px', height: '800px'}">
+        <div v-html="txt1" v-bind:style="{ width: '360px' ,position: 'relative' ,  border: '2px solid blue',  padding: '50px' , top:'250px' , left:'60px' }">
+         </div>  
+    </div>     
+ 
+    <div v-html="img2"></div>
+    <div v-html="img3"></div>
+    <div v-html="img4"></div>
+
+</div>
+
+<!-- js -->
+<script>
+    new Vue({
+      el: "#app",
+      data: {
+        img1: "images/ipta.png",
+        txt1: "" ,
+        img2: "<img src='images/clock.png'>",
+        img3: "<img src='images/desk.jpg'>",
+        img4: "<img src='images/goto.png'>"        
+      },
+      mounted () {
+  	    axios
+  	      .get('first.txt')
+  	      .then(response => (this.txt1 = response.data))
+  	      .catch(function (error) { // 請求失敗處理
+  	        console.log(error);
+  	      });
+  	  }
+    });
+</script>
+</body>
+</html>
